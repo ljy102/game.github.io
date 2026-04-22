@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.3">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 12.0px 'PingFang SC'; font-kerning: none}
+    span.s3 {font: 12.0px 'Apple Color Emoji'; font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="zh-CN"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;title&gt;</span><span class="s2">校园综合服务平台完整版</span><span class="s1">&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">&lt;script src="https://cdn.jsdelivr.net/npm/vue@3"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;style&gt;</span></p>
+<p class="p1"><span class="s1">*{box-sizing:border-box}</span></p>
+<p class="p1"><span class="s1">body{margin:0;background:#f5f7fa;font-family:Microsoft YaHei}</span></p>
+<p class="p1"><span class="s1">.wrap{max-width:1100px;margin:0 auto;padding:20px}</span></p>
+<p class="p1"><span class="s1">.bar{display:flex;gap:12px;align-items:center;margin-bottom:16px}</span></p>
+<p class="p1"><span class="s1">.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px #0000000a}</span></p>
+<p class="p1"><span class="s1">.avatar{width:46px;height:46px;border-radius:50%}</span></p>
+<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div id="app"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;template v-if="user"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="wrap"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="bar"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;el-button-group v-model="tab"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;el-button label="</span><span class="s2">失物招领</span><span class="s1">" value="lost"&gt;&lt;/el-button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;el-button label="</span><span class="s2">二手交易</span><span class="s1">" value="second"&gt;&lt;/el-button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;el-button label="</span><span class="s2">校园论坛</span><span class="s1">" value="forum"&gt;&lt;/el-button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/el-button-group&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;el-select v-model="filterCategory" placeholder="</span><span class="s2">分类</span><span class="s1">" @change="load"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;el-option label="</span><span class="s2">全部</span><span class="s1">" value=""&gt;&lt;/el-option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;el-option v-for="c in categories[tab]" :label="c" :value="c"&gt;&lt;/el-option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/el-select&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;el-input v-model="filterLocation" placeholder="</span><span class="s2">位置</span><span class="s1">" @keyup.enter="load" style="width:180px"&gt;&lt;/el-input&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div style="flex:1"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;el-button icon="Bell" @click="showMsg=true" :badge="msgCount"&gt;&lt;/el-button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;el-button type="primary" @click="showPub=tab"&gt;</span><span class="s2">发布</span><span class="s1">&lt;/el-button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div v-for="item in list" class="card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;h4&gt;{{item.title || item.name}}&lt;/h4&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p&gt;</span><span class="s2">分类：</span><span class="s1">{{item.category}}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p&gt;</span><span class="s2">位置：</span><span class="s1">{{item.location}}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;el-button size="small" @click="like(item)"&gt;</span><span class="s3">👍</span><span class="s2">点赞</span><span class="s1">&lt;/el-button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;el-button size="small" @click="collect(item)"&gt;</span><span class="s3">⭐</span><span class="s2">收藏</span><span class="s1">&lt;/el-button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;el-button size="small" @click="openComment(item)"&gt;</span><span class="s3">💬</span><span class="s2">评论</span><span class="s1">&lt;/el-button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- </span><span class="s2">评论弹窗</span><span class="s1"> --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;el-dialog v-model="showComment" title="</span><span class="s2">评论</span><span class="s1">" width="500px"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;el-input v-model="newComment" type="textarea" rows="3"&gt;&lt;/el-input&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;el-button @click="sendComment" style="margin-top:10px"&gt;</span><span class="s2">发表</span><span class="s1">&lt;/el-button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div v-for="c in comments" style="margin-top:12px;padding-bottom:8px;border-bottom:1px solid #eee"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;b&gt;{{c.studentId}}&lt;/b&gt;</span><span class="s2">：</span><span class="s1">{{c.content}}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/el-dialog&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- </span><span class="s2">消息</span><span class="s1"> --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;el-dialog v-model="showMsg" title="</span><span class="s2">消息通知</span><span class="s1">"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div v-for="m in messages" style="padding:10px;border-bottom:1px solid #eee"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>{{m.content}}&lt;br&gt;&lt;small&gt;{{m.create_time}}&lt;/small&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/el-dialog&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/template&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1">const { createApp } = Vue</span></p>
+<p class="p1"><span class="s1">createApp({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>data(){return{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>user:{studentId:'2026001'},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>tab:'lost',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>categories:{lost:['</span><span class="s2">证件</span><span class="s1">','</span><span class="s2">电子产品</span><span class="s1">','</span><span class="s2">生活用品</span><span class="s1">'],second:['</span><span class="s2">书籍</span><span class="s1">','</span><span class="s2">数码</span><span class="s1">','</span><span class="s2">其他</span><span class="s1">'],forum:['</span><span class="s2">求助</span><span class="s1">','</span><span class="s2">闲聊</span><span class="s1">']},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>filterCategory:'',filterLocation:'',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>list:[],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>showComment:false,comments:[],newComment:'',currItem:{},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>showMsg:false,messages:[],msgCount:0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>methods:{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>async load(){/* </span><span class="s2">加载列表</span><span class="s1"> */},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>async like(){/* </span><span class="s2">点赞</span><span class="s1"> */},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>async collect(){/* </span><span class="s2">收藏</span><span class="s1"> */},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>async openComment(){/* </span><span class="s2">打开评论</span><span class="s1"> */},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>async sendComment(){/* </span><span class="s2">发评论</span><span class="s1"> */}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1">}).use(ElementPlus).mount('#app')</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
